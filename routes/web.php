@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UploadController;
+use App\Http\Controllers\MahasiswaController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -23,5 +25,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/uploads', [UploadController::class, 'store'])->name('upload.store');
     Route::delete('/uploads/{upload}', [UploadController::class, 'destroy'])->name('upload.destroy');
 });
+
+Route::resource('mahasiswa', MahasiswaController::class)->except(['show']);
+Route::get('/mahasiswa/get-data', [MahasiswaController::class, 'getData'])->name('mahasiswa.get-data');
 
 require __DIR__.'/auth.php';
